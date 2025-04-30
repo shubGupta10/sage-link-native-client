@@ -5,6 +5,7 @@ import { BlurView } from "expo-blur";
 import { Feather } from '@expo/vector-icons';
 import colors from "@/assets/Colors";
 import { useRouter } from "expo-router";
+import { useAuthStore } from '@/store/useAuthStore';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -13,7 +14,8 @@ export default function LoginScreen() {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  
+  const {setAuthTokens} = useAuthStore();
+
   const handleLogin = async () => {
     if (!identifier || !password) {
       Alert.alert('Missing fields', 'Please enter your email/username and password.');
@@ -36,7 +38,10 @@ export default function LoginScreen() {
       const data = await response.json();
       console.log('Login response:', data);
       
+      setAuthTokens(data.accessToken, data.refreshToken);
+      
       if (response.ok) {
+        router.push('/home');
         Alert.alert('Success', 'Logged in successfully!');
       } else {
         Alert.alert('Login Failed', data.message || 'Invalid credentials');
