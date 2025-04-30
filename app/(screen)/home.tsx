@@ -15,6 +15,7 @@ import { Feather } from '@expo/vector-icons';
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_600SemiBold, Poppins_700Bold } from '@expo-google-fonts/poppins';
 import colors from '@/assets/Colors';
 import BackgroundGradient from '@/components/BackgroundGradient';
+import { useRouter } from 'expo-router';
 
 interface User {
   name?: string;
@@ -64,7 +65,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
     if (user?.username) {
       return user.username.substring(0, 2).toUpperCase();
     }
-    return 'SG';
+    return 'User';
   };
 
   return (
@@ -86,6 +87,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
 };
 
 const OptionBox: React.FC<OptionBoxProps> = ({ title, description, icon, onPress }) => {
+  const router = useRouter();
   return (
     <Pressable
       onPress={onPress}
@@ -109,6 +111,7 @@ const OptionBox: React.FC<OptionBoxProps> = ({ title, description, icon, onPress
           
           <View className="flex-row justify-end">
             <Pressable 
+              onPress={() => router.push('/(screen)/chatWithLink')}
               className="flex-row items-center py-2 px-4 rounded-full"
               style={{ backgroundColor: `${colors.primary}15` }}
             >
@@ -126,7 +129,6 @@ const OptionBox: React.FC<OptionBoxProps> = ({ title, description, icon, onPress
 
 const Home: React.FC = () => {
   const { user } = useAuthStore();
-  const { width } = useWindowDimensions();
   
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
