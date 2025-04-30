@@ -87,7 +87,6 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
 };
 
 const OptionBox: React.FC<OptionBoxProps> = ({ title, description, icon, onPress }) => {
-  const router = useRouter();
   return (
     <Pressable
       onPress={onPress}
@@ -111,7 +110,6 @@ const OptionBox: React.FC<OptionBoxProps> = ({ title, description, icon, onPress
           
           <View className="flex-row justify-end">
             <Pressable 
-              onPress={() => router.push('/(screen)/chatWithLink')}
               className="flex-row items-center py-2 px-4 rounded-full"
               style={{ backgroundColor: `${colors.primary}15` }}
             >
@@ -129,6 +127,7 @@ const OptionBox: React.FC<OptionBoxProps> = ({ title, description, icon, onPress
 
 const Home: React.FC = () => {
   const { user } = useAuthStore();
+  const router = useRouter();
   
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -142,11 +141,11 @@ const Home: React.FC = () => {
   }
 
   const handleChatWithLink = (): void => {
-    console.log('Chat with link pressed');
+    router.push('/(screen)/chatWithLink')
   };
 
   const handleChatWithDoc = (): void => {
-    console.log('Chat with doc pressed');
+    router.push('/(screen)/chatWithDoc')
   };
 
   const handleSettings = (): void => {

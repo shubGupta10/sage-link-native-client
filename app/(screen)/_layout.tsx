@@ -1,15 +1,12 @@
-import React from 'react'
-import { Stack } from 'expo-router'
+import { Stack } from "expo-router"
 
-const ScreenLayout = () => {
+export default function ScreenLayout() {
   return (
-    <Stack 
+    <Stack
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: 'transparent' }
-      }} 
+        contentStyle: { backgroundColor: "transparent" },
+      }}
     />
-  );
+  )
 }
-
-export default ScreenLayout
