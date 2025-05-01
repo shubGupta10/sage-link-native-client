@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SageLink",
-    "slug": "sagelink-client",
+    "slug": "sagelink",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/robot.png",
@@ -36,6 +36,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "858b3b26-f2b4-4cd7-84f4-42a49f6909f3"
+      }
+    },
+    "owner": "shubham720"
   }
 }
