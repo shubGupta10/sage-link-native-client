@@ -144,9 +144,6 @@ const Home: React.FC = () => {
     router.push('/(screen)/chatWithLink')
   };
 
-  const handleChatWithDoc = (): void => {
-    router.push('/(screen)/chatWithDoc')
-  };
 
   const handleSettings = (): void => {
     console.log('Settings pressed');
@@ -191,14 +188,6 @@ const Home: React.FC = () => {
               icon="link"
               onPress={handleChatWithLink}
             />
-            
-            <OptionBox
-              title="Chat With Doc"
-              description="Upload and analyze any document with AI assistance"
-              icon="file-text"
-              onPress={handleChatWithDoc}
-            />
-            
             <View className="h-20" />
           </View>
         </View>

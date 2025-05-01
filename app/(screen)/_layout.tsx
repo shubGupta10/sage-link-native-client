@@ -1,12 +1,10 @@
 import { Stack } from "expo-router"
 
 export default function ScreenLayout() {
-  return (
-    <Stack
+  return <Stack
       screenOptions={{
         headerShown: false,
         contentStyle: { backgroundColor: "transparent" },
       }}
     />
-  )
 }
