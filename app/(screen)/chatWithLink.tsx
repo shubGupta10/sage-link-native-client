@@ -18,6 +18,7 @@ import {
   Keyboard,
   Image,
   Linking,
+  BackHandler,
 } from "react-native"
 import colors from "@/assets/Colors"
 
@@ -246,6 +247,23 @@ function ChatWithLink() {
   const thumbnailId = extractVideoIdForThumbnail(videoURL)
   const thumbnailUrl = thumbnailId ? `https://img.youtube.com/vi/${thumbnailId}/hqdefault.jpg` : null
 
+  // Handle hardware back button (Android)
+  useEffect(() => {
+    const backHandler = () => {
+      if (showModal) {
+        setShowModal(false)
+        return true // Prevent default behavior
+      }
+      return false // Allow default behavior (exit app)
+    }
+
+    // Add event listener for hardware back press (Android only)
+    if (Platform.OS === "android") {
+      const backHandlerSubscription = BackHandler.addEventListener("hardwareBackPress", backHandler)
+      return () => backHandlerSubscription.remove()
+    }
+  }, [showModal])
+
   return (
     <BackgroundGradient>
       <Animated.View
@@ -264,7 +282,19 @@ function ChatWithLink() {
       >
         {/* Header */}
         <View className="flex-row items-center p-4 border-b border-[rgba(255,255,255,0.1)]">
-          <TouchableOpacity className="mr-4">
+          <TouchableOpacity
+            className="mr-4"
+            onPress={() => {
+              if (showModal) {
+                setShowModal(false)
+              } else {
+                // Handle navigation back
+                // If using React Navigation, you can use navigation.goBack()
+                // For now, we'll just close the modal if it's open
+                setShowModal(false)
+              }
+            }}
+          >
             <MaterialIcons name="arrow-back" size={24} color={colors.textPrimary} />
           </TouchableOpacity>
           <Text className="text-xl font-bold" style={{ color: colors.textPrimary }}>
@@ -327,6 +357,13 @@ function ChatWithLink() {
         <Modal visible={showModal} transparent animationType="fade">
           <View className="flex-1 justify-center items-center p-4" style={{ backgroundColor: "rgba(15, 23, 42, 0.9)" }}>
             <View className="bg-[rgba(255,255,255,0.06)] p-6 rounded-3xl w-full max-w-md border border-[rgba(255,255,255,0.1)]">
+              <TouchableOpacity
+                onPress={() => setShowModal(false)}
+                className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-[rgba(255,255,255,0.1)] items-center justify-center"
+                accessibilityLabel="Close modal"
+              >
+                <MaterialIcons name="close" size={20} color={colors.textPrimary} />
+              </TouchableOpacity>
               <Text className="text-xl font-bold mb-4 text-center" style={{ color: colors.textPrimary }}>
                 Enter YouTube Video URL
               </Text>
