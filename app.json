@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/robot.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.shubham720.sagelink"
     },
     "web": {
       "bundler": "metro",
